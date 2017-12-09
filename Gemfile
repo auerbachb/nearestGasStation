@@ -45,3 +45,4 @@ group :development do
 end
 
 gem 'mongoid'
+gem 'factory_bot_rails'
