@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_bot_rails'
   gem 'guard-rspec', require: false
+  gem 'spring-commands-rspec'
 end
 
 group :development do
