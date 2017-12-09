@@ -49,3 +49,5 @@ group :development do
 end
 
 gem 'mongoid'
+
+gem 'rest-client'
