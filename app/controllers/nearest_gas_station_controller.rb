@@ -1,6 +1,7 @@
 class NearestGasStationController < ApplicationController
+  include ActionController::Caching
+
   def show
-    @address = Geocoordinate.location_geocoordinate({ lat: params[:lat], lng: params[:lng] })
-    @nearest_gas_station = Geocoordinate.nearest_gas_station({ lat: params[:lat], lng: params[:lng] })
+    @location = { lat: params[:lat], lng: params[:lng] }
   end
 end

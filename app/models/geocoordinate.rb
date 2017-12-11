@@ -12,6 +12,7 @@ class Geocoordinate
       # use the google geocoding api load the location geocoordinate
       res = RestClient.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{location[:lat]},#{location[:lng]}&key=#{google_geocoding_apikey}")
       results = JSON.parse(res.body)["results"]
+      logger.debug results
       if results.empty?
         return { status: -1, msg: 'not load the location geocoordinate'}
       end
@@ -27,6 +28,7 @@ class Geocoordinate
       # use the google map api get the nearest gas station place id
       res = RestClient.get("https://maps.googleapis.com/maps/api/place/radarsearch/json?location=#{location[:lat]},#{location[:lng]}&radius=5000&type=gas_station&key=#{google_places_apikey}")
       results = JSON.parse(res.body)["results"]
+      logger.debug results
       if results.empty?
         return { status: -1, msg: 'not found any gas station'}
       end
