@@ -53,3 +53,5 @@ gem 'mongoid'
 gem 'rest-client'
 
 gem 'redis-rails'
+
+gem 'config'
