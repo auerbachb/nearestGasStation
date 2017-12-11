@@ -6,11 +6,10 @@ class Geocoordinate
   field :postal_code, type: String
 
   def self.location_geocoordinate(location)
-    google_geocoding_apikey ='AIzaSyCP_z5svlwx1ojxFeU4qDBLmNsBbv-Y-IY'
     begin
       RestClient.proxy = "http://127.0.0.1:8089/"
       # use the google geocoding api load the location geocoordinate
-      res = RestClient.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{location[:lat]},#{location[:lng]}&key=#{google_geocoding_apikey}")
+      res = RestClient.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{location[:lat]},#{location[:lng]}&key=#{Settings.google_map.geocoding_apikey}")
       results = JSON.parse(res.body)["results"]
       logger.debug results
       if results.empty?
@@ -23,10 +22,9 @@ class Geocoordinate
   end
 
   def self.nearest_gas_station(location)
-    google_places_apikey = 'AIzaSyCjlXWxmVQjGgcbvWmoOuP_MZRucBtKPRM'
     begin
       # use the google map api get the nearest gas station place id
-      res = RestClient.get("https://maps.googleapis.com/maps/api/place/radarsearch/json?location=#{location[:lat]},#{location[:lng]}&radius=5000&type=gas_station&key=#{google_places_apikey}")
+      res = RestClient.get("https://maps.googleapis.com/maps/api/place/radarsearch/json?location=#{location[:lat]},#{location[:lng]}&radius=5000&type=gas_station&key=#{Settings.google_map.places_apikey}")
       results = JSON.parse(res.body)["results"]
       logger.debug results
       if results.empty?
@@ -34,7 +32,7 @@ class Geocoordinate
       end
       place_id = results.first["place_id"]
       # use the google map api load the nearest gas station geocoordinate
-      res = RestClient.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&key=#{google_places_apikey}")
+      res = RestClient.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&key=#{Settings.google_map.places_apikey}")
       result = JSON.parse(res.body)["result"]["address_components"]
       nearest_gas_station = address_to_geocoordinate(result)
     rescue Exception => e
