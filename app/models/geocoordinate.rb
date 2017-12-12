@@ -7,7 +7,7 @@ class Geocoordinate
 
   def self.location_geocoordinate(location)
     begin
-      RestClient.proxy = "http://127.0.0.1:8089/"
+      # RestClient.proxy = "http://127.0.0.1:8089/"
       # use the google geocoding api load the location geocoordinate
       res = RestClient.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{location[:lat]},#{location[:lng]}&key=#{Settings.google_map.geocoding_apikey}")
       results = JSON.parse(res.body)["results"]
