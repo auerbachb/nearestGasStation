@@ -26,6 +26,9 @@ module NearestGas
     # -- all .rb files in that directory are automatically loaded.
     # redis-rails for cache
     config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 1.day }
+    # auto reload the lib paths
+    config.autoload_paths << Rails.root.join("lib")
+    config.eager_load_paths << Rails.root.join("lib")
 
     # Don't generate system test files.
     config.generators.system_tests = nil

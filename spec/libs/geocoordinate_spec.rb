@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Geocoordinate, type: :model do
+RSpec.describe Geocoordinate do
   it 'can load the location of nearest gas station' do
     lat = 37.77801
     lng = -122.4119076
